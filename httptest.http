@@ -1,0 +1,19 @@
+### Login Requests
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "admin@email.com",
+  "password": "password12"
+}
+
+
+### Register Requests
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "email": "admin@email.com",
+  "name": "admin",
+  "password": "password123"
+}
