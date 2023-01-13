@@ -32,14 +32,36 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
 
     def __repr__(self):
-        return f'<User {self.name}>'
+        return f'<Letter {self.name}>'
 
     def to_json(self):
         return {
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'password': self.password.decode('utf-8'),
+            'password': self.password,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
+
+
+class Letter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    nik = db.Column(db.String(16), nullable=False)
+    notes = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
+
+    def __repr__(self):
+        return f'<Letter {self.name}>'
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'nik': self.nik,
+            'notes': self.notes,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
@@ -79,7 +101,7 @@ def login():
             return jsonify(
                 {
                     'status': 'success',
-                    'message': 'Berhasil melakukan pendaftaran',
+                    'message': 'berhasil melakukan pendaftaran',
                     'data': {
                         'user': user.to_json(),
                         'accessToken': access_token
@@ -87,10 +109,16 @@ def login():
                 }
             )
         else:
-            return jsonify({'msg': 'password salah'}), 401
+            return jsonify({
+                'status': 'fail',
+                'message': 'password salah'
+            }), 401
 
-    except AttributeError:
-        return jsonify({'msg': 'email salah'}), 401
+    except IntegrityError:
+        return jsonify({
+            'status': 'fail',
+            'message': 'email salah'
+        }), 401
 
 
 @app.route('/register', methods=['POST'])
@@ -99,11 +127,13 @@ def register():
     name = request.json.get('name', None)
     password = request.json.get('password', None)
 
+    data = User(name=name, email=email, password=password_hash(password))
+
     try:
-        data = User(name=name, email=email, password=password_hash(password))
         db.session.add(data)
         db.session.commit()
     except IntegrityError:
+        db.session.rollback()
         return jsonify(
             {
                 'status': 'fail',
@@ -124,14 +154,63 @@ def register():
     )
 
 
-@app.route('/dashboard')
-def dashboard():
-    return jsonify(code=200, message='Dashboard'), 200
+@app.route('/letters', methods=['POST'])
+def create_letter():
+    name = request.json.get('name', None)
+    nik = request.json.get('nik', None)
+    notes = request.json.get('notes', None)
+
+    data = Letter(name=name, nik=nik, notes=notes)
+
+    try:
+        db.session.add(data)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify(
+            {
+                'status': 'fail',
+                'message': 'bad requests'
+            }
+        ), 401
+
+    return jsonify(
+        {
+            'status': 'success',
+            'message': 'berhasil mengirim surat',
+            'data': {
+                'surat': data.to_json(),
+            }
+        }
+    )
 
 
-@app.route('/letter')
-def letter():
-    return jsonify(code=200, message='Surat'), 200
+@app.route('/letters', methods=['GET'])
+def get_letters():
+    letters = [i.to_json() for i in Letter.query.all()]
+    return jsonify(
+        {
+            'status': 'success',
+            'message': 'berhasil mengambil surat',
+            'data': {
+                'surat': letters,
+            }
+        }
+    )
+
+
+@app.route('/letters/<int:letter_id>', methods=['GET'])
+def get_letter_by_id(letter_id):
+    letters = Letter.query.filter_by(id=letter_id).first()
+    return jsonify(
+        {
+            'status': 'success',
+            'message': 'berhasil mengambil surat',
+            'data': {
+                'surat': letters.to_json(),
+            }
+        }
+    )
 
 
 if __name__ == '__main__':

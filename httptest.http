@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "email": "admin@email.com",
-  "password": "password12"
+  "password": "password123"
 }
 
 
@@ -17,3 +17,21 @@ Content-Type: application/json
   "name": "admin",
   "password": "password123"
 }
+
+### Create Letter
+POST http://localhost:5000/letters
+Content-Type: application/json
+
+{
+  "name": "{{$random.alphabetic(20)}}",
+  "nik": "{{$random.alphabetic(16)}}",
+  "notes": "{{$random.alphabetic(120)}}"
+}
+
+### Get Letters
+GET http://localhost:5000/letters
+Content-Type: application/json
+
+### Get Letter by Id
+GET http://localhost:5000/letters/1
+Content-Type: application/json
