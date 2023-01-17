@@ -2,7 +2,7 @@ import os
 from datetime import timedelta, datetime
 
 import bcrypt
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -32,7 +32,7 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
 
     def __repr__(self):
-        return f'<Letter {self.name}>'
+        return f'<User {self.name}>'
 
     def to_json(self):
         return {
@@ -86,39 +86,42 @@ def password_check(password, hash_password):
 
 @app.route('/')
 def hello_world():
-    return jsonify(code=200, message='Server running'), 200
+    return render_template("pages/home.html")
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    email = request.json.get('email', None)
-    password = request.json.get('password', None)
-    try:
-        user = User.query.filter_by(email=email).first()
-        match_password = password_check(password, user.password)
-        if user and match_password:
-            access_token = create_access_token(identity=email)
-            return jsonify(
-                {
-                    'status': 'success',
-                    'message': 'berhasil melakukan pendaftaran',
-                    'data': {
-                        'user': user.to_json(),
-                        'accessToken': access_token
+    if request.method == 'POST':
+        email = request.json.get('email', None)
+        password = request.json.get('password', None)
+        try:
+            user = User.query.filter_by(email=email).first()
+            match_password = password_check(password, user.password)
+            if user and match_password:
+                access_token = create_access_token(identity=email)
+                return jsonify(
+                    {
+                        'status': 'success',
+                        'message': 'berhasil melakukan pendaftaran',
+                        'data': {
+                            'user': user.to_json(),
+                            'accessToken': access_token
+                        }
                     }
-                }
-            )
-        else:
+                )
+            else:
+                return jsonify({
+                    'status': 'fail',
+                    'message': 'password salah'
+                }), 401
+
+        except IntegrityError:
             return jsonify({
                 'status': 'fail',
-                'message': 'password salah'
+                'message': 'email salah'
             }), 401
-
-    except IntegrityError:
-        return jsonify({
-            'status': 'fail',
-            'message': 'email salah'
-        }), 401
+    elif request.method == 'GET':
+        return render_template('pages/login.html')
 
 
 @app.route('/register', methods=['POST'])
@@ -211,6 +214,57 @@ def get_letter_by_id(letter_id):
             }
         }
     )
+
+
+@app.route('/letters/<int:letter_id>', methods=['PUT'])
+def update_letter(letter_id):
+    letter = Letter.query.filter_by(id=letter_id).first()
+
+    name = request.json.get('name', None)
+    nik = request.json.get('nik', None)
+    notes = request.json.get('notes', None)
+    letter.name = name
+    letter.nik = nik
+    letter.notes = notes
+
+    try:
+        db.session.commit()
+        return jsonify(
+            {
+                'status': 'success',
+                'message': 'berhasil menghapus surat'
+            }
+        ), 200
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify(
+            {
+                'status': 'fail',
+                'message': 'id surat tidak ditemukan'
+            }
+        ), 401
+
+
+@app.route('/letters/<int:letter_id>', methods=['DELETE'])
+def delete_letter(letter_id):
+    letter = Letter.query.filter_by(id=letter_id).first()
+    try:
+        db.session.delete(letter)
+        db.session.commit()
+        return jsonify(
+            {
+                'status': 'success',
+                'message': 'berhasil menghapus surat'
+            }
+        ), 200
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify(
+            {
+                'status': 'fail',
+                'message': 'id surat tidak ditemukan'
+            }
+        ), 401
 
 
 if __name__ == '__main__':
