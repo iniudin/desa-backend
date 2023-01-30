@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %} - Formulir Surat Keterangan {% endblock %}
+
+{% block content %}
+    <div class="container bg-light">
+        {% include "_navbar.html" %}
+
+        <main>
+            <div class="py-5 text-center">
+                <h2>Formulir Surat Keterangan</h2>
+                <p class="lead">
+                    Below is an example form built entirely with Bootstrap’s form controls. Each required form group has
+                    a validation state that can be triggered by attempting to submit the form without completing it.
+                </p>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-info">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <div class="container">
+                <h4 class="mb-3">Identitas</h4>
+                <form method="POST" action="{{ url_for('letters.letter_create') }}" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="form-label">Nomor Induk Kependudukan (NIK)</label>
+                            <input type="text" class="form-control" name="nik" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="form-label">Nomor Kartu Keluarga (KK)</label>
+                            <input type="text" class="form-control" name="kk" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Nomor Telepon (WA)</label>
+                            <input type="text" class="form-control" name="phone" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="formFile" class="form-label">Upload KTP</label>
+                            <input class="form-control" type="file" name="fileKTP">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="formFile" class="form-label">Upload KK</label>
+                            <input class="form-control" type="file" name="fileKK">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Catatan</label>
+                            <textarea class="form-control" required name="notes" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Kirim</button>
+                </form>
+            </div>
+
+        </main>
+        {% include "_footer.html" %}
+    </div>
+
+{% endblock %}

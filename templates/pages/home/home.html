@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %} - Pelayanan Surat Menyurat Desa {% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            {% include "_navbar.html" %}
+            <section>
+                <div class="p-5 mb-4 bg-light rounded-3"
+                     style="
+                             background: url({{ url_for('static', filename='images/caraousel-bg.jpeg') }}) no-repeat center center;
+                             -webkit-background-size: cover;
+                             -moz-background-size: cover;
+                             -o-background-size: cover;
+                             background-size: cover;
+                             ">
+
+                    <div class="py-5">
+                        <div class="bg-opacity-50 text-bg-light rounded-3 p-3">
+                            <h1 class="display-5 fw-bold text-center ">Sistem Informasi Pelayanan</h1>
+                            <p class="fs-4 text-center">
+                                Using a series of utilities, you can create this
+                                jumbotron, just like the one in previous versions of Bootstrap. Check out the examples
+                                below for how you can remix and restyle it to your liking.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="mb-5" id="layanan">
+                <div class="row align-items-md-stretch">
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-bg-dark rounded-3">
+                            <h2>Surat Umum</h2>
+                            <p>
+                                Membantu masyarakat dalam mengakses berbagai layanan umum yang disediakan oleh
+                                pemerintah desa.
+                            </p>
+                            <ul class="icon-list ps-0">
+                                <li class="d-flex align-items-start mb-1">
+                                    <a class="text-bg-dark" href="{{ url_for('letters.letter_create') }}">
+                                        Surat Keterangan
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 bg-light border rounded-3">
+                            <h2>Surat Kependudukan</h2>
+                            <p>
+                                Akses mudah dan cepat untuk masyarakat dalam mengakses berbagai layanan kependudukan
+                                pemerintah desa.
+                            </p>
+                            <ul class="icon-list ps-0">
+                                <li class="d-flex align-items-start mb-1">
+                                    <a class="text-bg-light" href="{{ url_for('letters.letter_create') }}">
+                                        Surat Keterangan
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-md-stretch py-3">
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 bg-light border rounded-3">
+                            <h2>Surat Nikah</h2>
+                            <p>
+                                Mempermudah masyarakat dalam mengurus berbagai administrasi dan keterangan nikah.
+                            </p>
+                            <ul class="icon-list ps-0">
+                                <li class="d-flex align-items-start mb-1">
+                                    <a class="text-bg-light" href="{{ url_for('letters.letter_create') }}">
+                                        Surat Keterangan
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-bg-primary rounded-3">
+                            <h2>Surat Pertanahan</h2>
+                            <p>
+                                Membantu masyarakat dalam pengurusan layanan pertanahan yang disediakan oleh pemerintah
+                                desa.
+                            </p>
+                            <ul class="icon-list ps-0">
+                                <li class="d-flex align-items-start mb-1">
+                                    <a class="text-bg-primary" href="{{ url_for('letters.letter_create') }}">Surat
+                                        Keterangan</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="row flex-lg-row-reverse align-items-center g-5 py-5 m-1 rounded-3 text-bg-dark">
+                    <div class="col-lg-6">
+                        <div class="embed-responsive">
+                            <iframe class="w-100" height="315" src="https://www.youtube.com/embed/iaKeUvyXgac"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Panduan mengurus Surat Umum</h1>
+                        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
+                            world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
+                            responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    </div>
+                </div>
+                <div class="row flex-lg-row-reverse align-items-center g-5 py-5 m-1 rounded-3 text-bg-light mt-3">
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Panduan mengurus Surat Kependudukan</h1>
+                        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
+                            world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
+                            responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="embed-responsive">
+                            <iframe class="w-100" height="315" src="https://www.youtube.com/embed/d_BFu5ABdjk"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                            picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="row flex-lg-row-reverse align-items-center g-5 py-5 m-1 rounded-3 text-bg-dark mt-3">
+                    <div class="col-lg-6">
+                        <div class="embed-responsive">
+                            <iframe class="w-100" height="315" src="https://www.youtube.com/embed/iaKeUvyXgac"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Panduan mengurus Surat Nikah</h1>
+                        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
+                            world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
+                            responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    </div>
+                </div>
+                <div class="row flex-lg-row-reverse align-items-center g-5 py-5 m-1 rounded-3 text-bg-light mt-3">
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Panduan mengurus Surat Pertanahan</h1>
+                        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
+                            world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
+                            responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="embed-responsive">
+                            <iframe class="w-100" height="315" src="https://www.youtube.com/embed/d_BFu5ABdjk"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                            picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% include "_footer.html" %}
+        </div>
+    </main>
+{% endblock %}

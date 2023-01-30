@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %} - Formulir Surat Keterangan {% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% include "_navbar.html" %}
+        <div class="container rounded-3 my-3 p-3">
+            <div class="container mb-3">
+                <h3>Detail Formulir : </h3>
+            </div>
+            <div class="container mb-5">
+                <div class="row row-cols-2">
+                    <div class="col-6">
+                        Nama:
+                    </div>
+                    <div class="col-6">
+                        {{ data.name }}
+                    </div>
+                    <div class="col-6">
+                        Nomor Induk Kependudukan:
+                    </div>
+                    <div class="col-6">
+                        {{ data.nik }}
+                    </div>
+                    <div class="col">
+                        Kartu Keluarga:
+                    </div>
+                    <div class="col">
+                        {{ data.kk }}
+                    </div>
+                    <div class="col">
+                        Nomor WA/Telepon:
+                    </div>
+                    <div class="col">
+                        {{ data.phone }}
+                    </div>
+                    <div class="col">
+                        Foto KTP:
+                    </div>
+                    <div class="col">
+                        <img class="img-fluid" src="{{ url_for('download_file', name=data.files[0].url) }}" alt="">
+                    </div>
+                    <div class="col">
+                        Foto KK:
+                    </div>
+                    <div class="col">
+                        <img class="img-fluid" src="{{ url_for('download_file', name=data.files[1].url) }}" alt="">
+                    </div>
+                    <div class="col">
+                        Catatan:
+                    </div>
+                    <div class="col">
+                        {{ data.notes }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include "_footer.html" %}
+    </div>
+
+{% endblock %}

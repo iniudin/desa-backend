@@ -1,0 +1,51 @@
+{% extends "pages/dashboard/_index.html" %}
+{% block title %} - Dashboard Surat {% endblock %}
+
+{% block content %}
+    <div class="container-fluid p-3 bg-body rounded shadow-sm">
+        <h3 class="border-bottom pb-2">Daftar Surat</h3>
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Catatan</th>
+                    <th scope="col">Dikirim</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in datas %}
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>
+                            {{ data.notes }}
+                        </td>
+                        <td>
+                            {{ data.created_at.strftime("%A, %d %B %Y /  %H:%M:%S") }}
+                        </td>
+                        <td>
+                            <a class="btn btn-success"
+                               href="{{ url_for('letters.letter_show', letter_id=data.id) }}"
+                               role="button">
+                                Detail
+                            </a>
+                            <a class="btn btn-primary"
+                               href="{{ url_for('letters.letter_update', letter_id=data.id) }}"
+                               role="button">
+                                Edit
+                            </a>
+                            <a class="btn btn-danger"
+                               href="{{ url_for('letters.letter_delete', letter_id=data.id) }}"
+                               role="button">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
