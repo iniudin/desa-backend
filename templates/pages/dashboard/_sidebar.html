@@ -3,8 +3,13 @@
         <div class="position-sticky pt-3 sidebar-sticky">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard.statistics') }}">
                         Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('letters.letter_list') }}">
+                        Surat Keterangan
                     </a>
                 </li>
             </ul>

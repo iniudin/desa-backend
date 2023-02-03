@@ -4,7 +4,7 @@ from flask import Flask
 from flask_login import LoginManager
 
 from app import db
-from controllers import auth, pages, letter
+from controllers import auth, pages, letter, forms, dashboard
 from models.user import User
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -16,6 +16,8 @@ db.init_app(app)
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+login_manager.login_message = 'Silahkan masuk untuk mengakses halaman ini.'
+login_manager.login_message_category = 'Tidak diizinkan'
 
 
 @login_manager.user_loader
@@ -28,6 +30,8 @@ login_manager.init_app(app)
 app.register_blueprint(auth)
 app.register_blueprint(letter)
 app.register_blueprint(pages)
+app.register_blueprint(forms)
+app.register_blueprint(dashboard)
 
 app.add_url_rule(
     "/uploads/<name>", endpoint="download_file", build_only=True
@@ -39,7 +43,9 @@ app.add_url_rule(
 #     db.create_all()
 #     user = User(
 #         email='bukor.jaya@gmail.com',
-#         password=generate_password_hash('Bukor12!', method='sha256')
+#         password=generate_password_hash('Bukor12!', method='sha256'),
+#         name='Admin'
+#
 #     )
 #
 #     db.session.add(user)

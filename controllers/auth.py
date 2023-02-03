@@ -15,10 +15,10 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user or not check_password_hash(user.password, password):
-            flash('Harap periksa detail login Anda dan coba lagi.')
+            flash('Harap periksa detail login Anda dan coba lagi.', "warning")
             return redirect(url_for('auth.login'))
         login_user(user, remember=True)
-        return redirect(url_for('pages.dashboard'))
+        return redirect(url_for('dashboard.statistics'))
     elif request.method == 'GET':
         return render_template('pages/login/login.html')
 

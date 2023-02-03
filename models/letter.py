@@ -12,7 +12,6 @@ class Letter(db.Model):
     notes = db.Column(db.String(255), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
     files = db.relationship('File', backref='letter', lazy=True, cascade="all, delete")
 
 

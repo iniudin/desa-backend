@@ -2,14 +2,16 @@
 {% block title %} - Dashboard Surat {% endblock %}
 
 {% block content %}
-    <div class="container-fluid p-3 bg-body rounded shadow-sm">
-        <h3 class="border-bottom pb-2">Daftar Surat</h3>
+
+    <div class="container-fluid p-3 bg-body rounded shadow">
+        <h1 class="border-bottom pb-2">Daftar Surat</h1>
         <div class="table-responsive">
             <table class="table table-sm table-borderless">
                 <thead class="table-dark">
                 <tr>
-                    <th scope="col">Nama</th>
+                    <th scope="col">Pengirim</th>
                     <th scope="col">Catatan</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Dikirim</th>
                     <th scope="col">Aksi</th>
                 </tr>
@@ -22,18 +24,21 @@
                             {{ data.notes }}
                         </td>
                         <td>
-                            {{ data.created_at.strftime("%A, %d %B %Y /  %H:%M:%S") }}
+                            {% if data.is_done %}
+                                <span class="badge text-bg-success">Selesai</span>
+                            {% else %}
+                                <span class="badge text-bg-secondary">Menunggu di proses</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ data.created_at.strftime("%A, %d %B %Y, Jam %H:%M:%S") }}
                         </td>
                         <td>
-                            <a class="btn btn-success"
+                            <a class="btn btn-primary"
                                href="{{ url_for('letters.letter_show', letter_id=data.id) }}"
                                role="button">
                                 Detail
-                            </a>
-                            <a class="btn btn-primary"
-                               href="{{ url_for('letters.letter_update', letter_id=data.id) }}"
-                               role="button">
-                                Edit
                             </a>
                             <a class="btn btn-danger"
                                href="{{ url_for('letters.letter_delete', letter_id=data.id) }}"
@@ -41,6 +46,10 @@
                                 Delete
                             </a>
                         </td>
+                    </tr>
+                {% else %}
+                    <tr class="text-center h2x  ">
+                        <td colspan="5">Belum ada surat yang masuk!</td>
                     </tr>
                 {% endfor %}
                 </tbody>

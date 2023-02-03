@@ -1,10 +1,10 @@
 import os
 
-from flask import Blueprint, request, render_template, redirect, url_for, flash, send_from_directory
-from werkzeug.utils import secure_filename
+from flask import Blueprint, render_template, send_from_directory, url_for, redirect, flash
+from flask_login import login_required
 
 from app import db
-from models.letter import Letter, File
+from models.letter import Letter
 
 letter = Blueprint('letters', __name__)
 
@@ -27,62 +27,39 @@ def download_file(name):
 
 @letter.route("/letters")
 def letter_list():
-    data = Letter.query.all()
+    data = Letter.query.order_by(Letter.created_at.desc()).all()
     return render_template("pages/letter/list.html", datas=data)
 
 
-@letter.route("/letters/create", methods=["GET", "POST"])
-def letter_create():
-    if request.method == "POST":
-        new_letter = Letter(
-            nik=request.form.get('nik'),
-            kk=request.form.get('kk'),
-            name=request.form.get('name'),
-            phone=request.form.get('phone'),
-            notes=request.form.get('notes'),
-        )
-
-        if 'fileKK' not in request.files:
-            flash('Mohon upload foto / scan Kartu Keluarga!')
-            return redirect(request.url)
-
-        if 'fileKTP' not in request.files:
-            flash('Mohon upload foto / scan Kartu Keluarga!')
-            return redirect(request.url)
-
-        for file in request.files.values():
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(UPLOAD_FOLDER, filename)
-                file.save(filepath)
-
-                photo = File(url=filename, letter=new_letter)
-                new_letter.files.append(photo)
-
-        db.session.add(new_letter)
-        db.session.commit()
-        flash('Surat berhasil dikirim')
-        return redirect(url_for("letters.letter_show", letter_id=new_letter.id))
-
-    return render_template("pages/letter/create.html")
-
-
 @letter.route("/letters/<int:letter_id>")
+@login_required
 def letter_show(letter_id):
     data = db.get_or_404(Letter, letter_id)
     return render_template("pages/letter/show.html", data=data)
 
 
 @letter.route("/letters/<int:letter_id>/update")
+@login_required
 def letter_update(letter_id):
-    data = db.get_or_404(Letter, letter_id)
-    return render_template("pages/letter/detail.html", letter=data)
+    data = Letter.query.filter_by(id=letter_id).first()
+    data.is_done = True
+    db.session.commit()
+
+    flash('Berhasil mengubah status surat', "success")
+    return redirect(url_for('letters.letter_list'))
 
 
 @letter.route("/letters/<int:letter_id>/delete", methods=["GET"])
+@login_required
 def letter_delete(letter_id):
-    data = db.get_or_404(Letter, letter_id)
+    data = Letter.query.filter_by(id=letter_id).first()
+    for img in data.files:
+        filepath = os.path.join(UPLOAD_FOLDER, img.url)
+        print(filepath)
+        os.remove(filepath)
+    
     db.session.delete(data)
     db.session.commit()
+    flash('Surat berhasil dihapus.', "success")
 
-    return render_template("pages/letter/delete.html", letter=data)
+    return redirect(url_for('letters.letter_list'))

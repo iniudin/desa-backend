@@ -1,0 +1,67 @@
+{% extends "pages/dashboard/_index.html" %}
+{% block title %} - Dashboard {% endblock %}
+
+{% block content %}
+    <div class="container-fluid p-3 mt-3 bg-body rounded shadow">
+        <h1 class="h1">Dashboard</h1>
+        <div class="row">
+            <div class="col-md-4 col-xl-3">
+                <div class="card text-bg-primary rounded-3 shadow">
+                    <div class="card-block">
+                        <h6 class="m-b-20">Surat Ketarangan</h6>
+                        <h1 class="text-start"><span>{{ stats['letter_not_done'] }}</span></h1>
+                        <p class="m-0">
+                            Selesai <span class="float-end">{{ stats['letter_done'] }}</span>
+                        </p>
+                        <p class="m-0">
+                            Total <span class="float-end">{{ stats['letter_count'] }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-3">
+                <div class="card text-bg-primary rounded-3 shadow">
+                    <div class="card-block">
+                        <h6 class="m-b-20">Surat Ketarangan</h6>
+                        <h1 class="text-right"><span>{{ stats['letter_not_done'] }}</span></h1>
+                        <p class="m-0">
+                            Selesai <span class="float-end">{{ stats['letter_done'] }}</span>
+                        </p>
+                        <p class="m-0">
+                            Total <span class="float-end">{{ stats['letter_count'] }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-3">
+                <div class="card text-bg-primary rounded-3 shadow">
+                    <div class="card-block">
+                        <h6 class="m-b-20">Surat Ketarangan</h6>
+                        <h1 class="text-right"><span>{{ stats['letter_not_done'] }}</span></h1>
+                        <p class="m-0">
+                            Selesai <span class="float-end">{{ stats['letter_done'] }}</span>
+                        </p>
+                        <p class="m-0">
+                            Total <span class="float-end">{{ stats['letter_count'] }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-3">
+                <div class="card text-bg-primary rounded-3">
+                    <div class="card-block">
+                        <h6 class="m-b-20">Surat Ketarangan</h6>
+                        <h1 class="text-right"><span>{{ stats['letter_not_done'] }}</span></h1>
+                        <p class="m-0">
+                            Selesai <span class="float-end">{{ stats['letter_done'] }}</span>
+                        </p>
+                        <p class="m-0">
+                            Total <span class="float-end">{{ stats['letter_count'] }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

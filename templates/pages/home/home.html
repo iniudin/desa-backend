@@ -15,12 +15,14 @@
                              ">
 
                     <div class="py-5">
-                        <div class="bg-opacity-50 text-bg-light rounded-3 p-3">
+                        <div class="bg-opacity-75 text-bg-light rounded-3 p-3">
                             <h1 class="display-5 fw-bold text-center ">Sistem Informasi Pelayanan</h1>
                             <p class="fs-4 text-center">
-                                Using a series of utilities, you can create this
-                                jumbotron, just like the one in previous versions of Bootstrap. Check out the examples
-                                below for how you can remix and restyle it to your liking.</p>
+                                Situs resmi pelayanan desa yang dapat digunakan secara cepat dan mudah oleh masyarakat
+                                Desa Bukor. Memudahkan masyarakat dalam administrasi meliputi pelayanan umum,
+                                kependudukan, nikah dan pertahanan serta menampilkan berbagai informasi mengenai panduan
+                                mengurus surat.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -36,7 +38,7 @@
                             </p>
                             <ul class="icon-list ps-0">
                                 <li class="d-flex align-items-start mb-1">
-                                    <a class="text-bg-dark" href="{{ url_for('letters.letter_create') }}">
+                                    <a class="text-bg-dark" href="{{ url_for('forms.surat_keterangan') }}">
                                         Surat Keterangan
                                     </a>
                                 </li>
@@ -53,7 +55,7 @@
                             </p>
                             <ul class="icon-list ps-0">
                                 <li class="d-flex align-items-start mb-1">
-                                    <a class="text-bg-light" href="{{ url_for('letters.letter_create') }}">
+                                    <a class="text-bg-light" href="{{ url_for('forms.surat_keterangan') }}">
                                         Surat Keterangan
                                     </a>
                                 </li>
@@ -70,7 +72,7 @@
                             </p>
                             <ul class="icon-list ps-0">
                                 <li class="d-flex align-items-start mb-1">
-                                    <a class="text-bg-light" href="{{ url_for('letters.letter_create') }}">
+                                    <a class="text-bg-light" href="{{ url_for('forms.surat_keterangan') }}">
                                         Surat Keterangan
                                     </a>
                                 </li>
@@ -86,7 +88,7 @@
                             </p>
                             <ul class="icon-list ps-0">
                                 <li class="d-flex align-items-start mb-1">
-                                    <a class="text-bg-primary" href="{{ url_for('letters.letter_create') }}">Surat
+                                    <a class="text-bg-primary" href="{{ url_for('forms.surat_keterangan') }}">Surat
                                         Keterangan</a>
                                 </li>
                             </ul>
@@ -95,7 +97,7 @@
                 </div>
             </section>
 
-            <section>
+            <section id="panduan">
                 <div class="row flex-lg-row-reverse align-items-center g-5 py-5 m-1 rounded-3 text-bg-dark">
                     <div class="col-lg-6">
                         <div class="embed-responsive">

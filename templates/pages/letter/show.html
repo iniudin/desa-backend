@@ -2,51 +2,81 @@
 {% block title %} - Formulir Surat Keterangan {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container text-bg-light">
         {% include "_navbar.html" %}
-        <div class="container rounded-3 my-3 p-3">
-            <div class="container mb-3">
-                <h3>Detail Formulir : </h3>
+
+        <div class="container rounded-3 shadow-sm bg-white   my-3 p-3">
+            <div>
+                <h3 class="border-bottom pb-3">Detail Formulir
+                    <span class="float-end">
+                        {% if data.is_done %}
+                            <a class="btn btn-primary"
+                               href="{{ url_for('letters.letter_update', letter_id=data.id) }}"
+                               role="button">
+                                Selesaikan
+                            </a>
+                        {% else %}
+                            <a class="btn btn-primary"
+                               href="{{ url_for('letters.letter_update', letter_id=data.id) }}"
+                               role="button">
+                                Selesaikan
+                            </a>
+                        {% endif %}
+
+                    </span>
+                </h3>
             </div>
-            <div class="container mb-5">
-                <div class="row row-cols-2">
-                    <div class="col-6">
-                        Nama:
-                    </div>
-                    <div class="col-6">
-                        {{ data.name }}
-                    </div>
-                    <div class="col-6">
-                        Nomor Induk Kependudukan:
-                    </div>
-                    <div class="col-6">
-                        {{ data.nik }}
+            <div class="container justify-content-between">
+                <div class="row">
+                    <div class="col-2 fw-bold">
+                        Nama Lengkap:
                     </div>
                     <div class="col">
-                        Kartu Keluarga:
+                        {{ data.name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 fw-bold">
+                        NIK:
+                    </div>
+                    <div class="col">
+                        {{ data.nik }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 fw-bold">
+                        No. KK:
                     </div>
                     <div class="col">
                         {{ data.kk }}
                     </div>
-                    <div class="col">
-                        Nomor WA/Telepon:
+                </div>
+                <div class="row">
+                    <div class="col-2 fw-bold">
+                        Nomor WA / Telepon:
                     </div>
                     <div class="col">
                         {{ data.phone }}
                     </div>
-                    <div class="col">
+                </div>
+                <div class="row">
+                    <div class="col-2 fw-bold">
                         Foto KTP:
                     </div>
                     <div class="col">
                         <img class="img-fluid" src="{{ url_for('download_file', name=data.files[0].url) }}" alt="">
                     </div>
-                    <div class="col">
+                </div>
+                <div class="row">
+                    <div class="col-2 fw-bold">
                         Foto KK:
                     </div>
                     <div class="col">
                         <img class="img-fluid" src="{{ url_for('download_file', name=data.files[1].url) }}" alt="">
                     </div>
-                    <div class="col">
+                </div>
+                <div class="row">
+                    <div class="col-2 fw-bold">
                         Catatan:
                     </div>
                     <div class="col">
@@ -55,7 +85,8 @@
                 </div>
             </div>
         </div>
-        {% include "_footer.html" %}
+    </div>
+    {% include "_footer.html" %}
     </div>
 
 {% endblock %}
