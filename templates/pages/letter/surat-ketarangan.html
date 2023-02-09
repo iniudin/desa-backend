@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %} - Formulir Surat Keterangan {% endblock %}
+
+{% block content %}
+    <div class="container bg-light">
+        {% include "_alerts.html" %}
+        <main>
+            <div class="py-5">
+
+                <h2 class="text-center">Formulir Surat Keterangan</h2>
+                <hr>
+                <p class="lead">
+                    Persyaratan:
+                <li>
+                    Scan KTP
+                </li>
+                <li>
+                    Scan Kartu Keluarga (KK)
+                </li>
+                <hr>
+                </p>
+                <p class="lead">
+                    Alur Pengajuan:
+                <li>
+                    Pemohon log in ke website SIP "Sistem Informasi Pelayanan" Desa Bukor
+                </li>
+                <li>
+                    Pemohon memilih layanan surat keterangan
+                </li>
+                <li>
+                    Pemohon mengisi formulir surat keterangan secara online
+                </li>
+                <li>
+                    Pemohon mengunggah berkas sesuai persyaratan layanan (Hanya sekali)
+                </li>
+                <li>
+                    klik tanda "Kirim" sebagai langkah akhir pengajuan
+                </li>
+                <li>
+                    Petugas akan melakukan verifikasi permohonan
+                </li>
+                <li>
+                    Pemohon menunggu konfirmsasi dari petugas melalui nomor Telepon / WhatsApp (WA).
+                </li>
+                </p>
+                <hr>
+            </div>
+
+            <div class="container">
+                <h4 class="mb-3">Identitas</h4>
+                <form method="POST" action="{{ url_for('forms.surat_keterangan') }}" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="form-label">Nomor Induk Kependudukan (NIK)</label>
+                            <input type="text" class="form-control" name="nik" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="form-label">Nomor Kartu Keluarga (KK)</label>
+                            <input type="text" class="form-control" name="kk" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Nomor Telepon (WA)</label>
+                            <input type="text" class="form-control" name="phone" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="formFile" class="form-label">Upload KTP</label>
+                            <input class="form-control" type="file" name="fileKTP">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="formFile" class="form-label">Upload KK</label>
+                            <input class="form-control" type="file" name="fileKK">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Catatan</label>
+                            <textarea class="form-control" required name="notes" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Kirim</button>
+                </form>
+            </div>
+        </main>
+        {% include "_footer.html" %}
+    </div>
+
+{% endblock %}

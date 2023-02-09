@@ -3,19 +3,51 @@
 
 {% block content %}
     <div class="container bg-light">
-        {% include "_navbar.html" %}
         {% include "_alerts.html" %}
         <main>
-            <div class="py-5 text-center">
-                <h2>Formulir Surat Keterangan Usaha</h2>
+            <div class="py-5">
+                <h2 class="text-center">Formulir Surat Pengantar</h2>
+                <hr>
                 <p class="lead">
-                    Berkas yang harus dilengkapi
+                    Persyaratan:
+                <li>
+                    Scan KTP
+                </li>
+                <li>
+                    Scan Kartu Keluarga (KK)
+                </li>
+                <hr>
+                <p class="lead">
+                    Alur Pengajuan:
+                <li>
+                    Pemohon log in ke website SIP "Sistem Informasi Pelayanan" Desa Bukor
+                </li>
+                <li>
+                    Pemohon memilih layanan surat keterangan
+                </li>
+                <li>
+                    Pemohon mengisi formulir surat keterangan secara online
+                </li>
+                <li>
+                    Pemohon mengunggah berkas sesuai persyaratan layanan (Hanya sekali)
+                </li>
+                <li>
+                    klik tanda "Kirim" sebagai langkah akhir pengajuan
+                </li>
+                <li>
+                    Petugas akan melakukan verifikasi permohonan
+                </li>
+                <li>
+                    Pemohon menunggu konfirmsasi dari petugas melalui nomor Telepon / WhatsApp (WA).
+                </li>
                 </p>
+                </p>
+                <hr>
             </div>
 
             <div class="container">
                 <h4 class="mb-3">Identitas</h4>
-                <form method="POST" action="{{ url_for('forms.surat_keterangan') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url_for('forms.surat_pengantar') }}" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label class="form-label">Nomor Induk Kependudukan (NIK)</label>

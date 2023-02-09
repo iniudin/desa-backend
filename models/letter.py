@@ -10,6 +10,7 @@ class Letter(db.Model):
     phone = db.Column(db.String(13), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     notes = db.Column(db.String(255), nullable=False)
+    type = db.Column(db.String(100), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     files = db.relationship('File', backref='letter', lazy=True, cascade="all, delete")

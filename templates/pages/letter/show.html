@@ -11,15 +11,15 @@
                     <span class="float-end">
                         {% if data.is_done %}
                             <a class="btn btn-primary"
-                               href="{{ url_for('letters.letter_update', letter_id=data.id) }}"
+                               href="{{ url_for('letters.letter_delete', letter_id=data.id) }}"
                                role="button">
-                                Selesaikan
+                                Hapus
                             </a>
                         {% else %}
                             <a class="btn btn-primary"
                                href="{{ url_for('letters.letter_update', letter_id=data.id) }}"
                                role="button">
-                                Selesaikan
+                                Selesai
                             </a>
                         {% endif %}
 
